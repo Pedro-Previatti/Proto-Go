@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 
 	pb "github.com/Pedro-Previatti/Proto-Go/proto"
 	"google.golang.org/protobuf/proto"
@@ -62,6 +63,18 @@ func doFile(p proto.Message) {
 	// fmt.Println(message)
 }
 
+func doToJSON(p proto.Message) string {
+	json := toJSON(p)
+	// fmt.Println(json)
+	return json
+}
+
+func doFromJSON(json string, t reflect.Type) proto.Message {
+	message := reflect.New(t).Interface().(proto.Message)
+	fromJSON(json, message)
+	return message
+}
+
 func main() {
 	fmt.Println("Simple Proto Message:")
 	fmt.Println(doSimple())
@@ -82,4 +95,12 @@ func main() {
 
 	fmt.Println("Proto Read and Write to File:")
 	doFile(doSimple())
+
+	fmt.Println("Proto to JSON:")
+	json := doToJSON(doComplex())
+	fmt.Println(json)
+
+	fmt.Println("Proto to JSON:")
+	proto := doFromJSON(json, reflect.TypeOf(pb.Complex{}))
+	fmt.Println(proto)
 }
