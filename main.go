@@ -31,6 +31,17 @@ func doEnumeration() *pb.Enumeration {
 	}
 }
 
+func doOneOf(message interface{}) {
+	switch x := message.(type) {
+	case *pb.Result_Id:
+		fmt.Println(message.(*pb.Result_Id).Id)
+	case *pb.Result_Message:
+		fmt.Println(message.(*pb.Result_Message).Message)
+	default:
+		fmt.Errorf("Message has unexpected type: %v", x)
+	}
+}
+
 func main() {
 	fmt.Println("Simple Proto Message:")
 	fmt.Println(doSimple())
@@ -40,4 +51,9 @@ func main() {
 
 	fmt.Println("Proto Message with Enumeration:")
 	fmt.Println(doEnumeration())
+
+	fmt.Println("Proto OneOfs Id:")
+	doOneOf(&pb.Result_Id{Id: 1})
+	fmt.Println("Proto OneOfs Message:")
+	doOneOf(&pb.Result_Message{Message: "Some message"})
 }
