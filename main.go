@@ -25,10 +25,19 @@ func doComplex() *pb.Complex {
 	}
 }
 
+func doEnumeration() *pb.Enumeration {
+	return &pb.Enumeration{
+		EyeColor: pb.EyeColor_GREEN,
+	}
+}
+
 func main() {
-	fmt.Println("Simple Proto Message")
+	fmt.Println("Simple Proto Message:")
 	fmt.Println(doSimple())
 
-	fmt.Println("Complex Proto Message")
+	fmt.Println("Complex Proto Message:")
 	fmt.Println(doComplex())
+
+	fmt.Println("Proto Message with Enumeration:")
+	fmt.Println(doEnumeration())
 }
