@@ -8,7 +8,10 @@ import (
 )
 
 func toJSON(pb proto.Message) string {
-	out, err := protojson.Marshal(pb)
+	option := protojson.MarshalOptions{
+		Multiline: true,
+	}
+	out, err := option.Marshal(pb)
 	if err != nil {
 		log.Fatalln("Unable to convert proto to json", err)
 		return ""
@@ -18,7 +21,10 @@ func toJSON(pb proto.Message) string {
 }
 
 func fromJSON(in string, pb proto.Message) {
-	if err := protojson.Unmarshal([]byte(in), pb); err != nil {
+	option := protojson.UnmarshalOptions{
+		DiscardUnknown: true,
+	}
+	if err := option.Unmarshal([]byte(in), pb); err != nil {
 		log.Fatalln("Unable to convert json to proto", err)
 	}
 }

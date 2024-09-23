@@ -103,4 +103,7 @@ func main() {
 	fmt.Println("Proto to JSON:")
 	proto := doFromJSON(json, reflect.TypeOf(pb.Complex{}))
 	fmt.Println(proto)
+
+	fmt.Println("Unknown type check")
+	fmt.Println(doFromJSON(`{"id": 1, "unknown": "test"}`, reflect.TypeOf(pb.Simple{})))
 }
