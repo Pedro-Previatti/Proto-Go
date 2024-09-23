@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	pb "github.com/Pedro-Previatti/Proto-Go/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func doSimple() *pb.Simple {
@@ -52,6 +53,15 @@ func doMap() *pb.MapExample {
 	}
 }
 
+func doFile(p proto.Message) {
+	path := "simple.bin"
+
+	writeProto(path, p)
+	message := &pb.Simple{}
+	readProto(path, message)
+	// fmt.Println(message)
+}
+
 func main() {
 	fmt.Println("Simple Proto Message:")
 	fmt.Println(doSimple())
@@ -69,4 +79,7 @@ func main() {
 
 	fmt.Println("Map Proto Message:")
 	fmt.Println(doMap())
+
+	fmt.Println("Proto Read and Write to File:")
+	doFile(doSimple())
 }
