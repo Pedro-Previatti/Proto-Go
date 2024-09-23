@@ -42,6 +42,16 @@ func doOneOf(message interface{}) {
 	}
 }
 
+func doMap() *pb.MapExample {
+	return &pb.MapExample{
+		Ids: map[string]*pb.IdWrapper{
+			"key200": {Id: 200},
+			"key201": {Id: 201},
+			"key202": {Id: 202},
+		},
+	}
+}
+
 func main() {
 	fmt.Println("Simple Proto Message:")
 	fmt.Println(doSimple())
@@ -56,4 +66,7 @@ func main() {
 	doOneOf(&pb.Result_Id{Id: 1})
 	fmt.Println("Proto OneOfs Message:")
 	doOneOf(&pb.Result_Message{Message: "Some message"})
+
+	fmt.Println("Map Proto Message:")
+	fmt.Println(doMap())
 }
